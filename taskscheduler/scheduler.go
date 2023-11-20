@@ -16,7 +16,7 @@ func New() *TaskScheduler {
 	return &TaskScheduler{Name: "Generic Scheduler", Timers: map[int64]*time.Timer{}}
 }
 
-func (ts *TaskScheduler) AddJob(f func(), duration time.Duration) {
+func (ts *TaskScheduler) AddJob(f func(), duration time.Duration) error {
 	id := ts.Count.Load()
 
 	// Add cleanup function
@@ -28,4 +28,5 @@ func (ts *TaskScheduler) AddJob(f func(), duration time.Duration) {
 	ts.Timers[id] = timer
 	ts.Count.Add(1)
 	fmt.Println(ts.Timers)
+	return nil
 }
